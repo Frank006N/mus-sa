@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "MUT SA",
+    "slug": "mut-sa",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/mut-logo.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/images/mut-logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "ke.ac.mut.sa"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/mut-logo.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "ke.ac.mut.sa"
+    },
+    "web": {
+      "favicon": "./assets/images/mut-logo.png"
+    }
+  }
+}
