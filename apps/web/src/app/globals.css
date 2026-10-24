@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Light Mode Default */
+body {
+  @apply bg-gradient-to-br from-emerald-50 via-white to-blue-50 text-gray-900;
+  background-attachment: fixed;
+}
+
+/* Dark Mode Overrides */
+.dark body {
+  @apply bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-gray-100;
+}
+
+/* Glassmorphism - Adapts to Theme */
+.glass-card {
+  @apply bg-white/80 backdrop-blur-xl border border-white/50 shadow-lg;
+}
+.dark .glass-card {
+  @apply bg-gray-800/60 backdrop-blur-xl border border-gray-700/50 shadow-black/20;
+}
+
+.glass-sidebar {
+  @apply bg-white/90 backdrop-blur-2xl border-r border-white/60 shadow-xl;
+}
+.dark .glass-sidebar {
+  @apply bg-gray-800/80 backdrop-blur-2xl border-r border-gray-700/60 shadow-black/30;
+}
+
+/* Interactive Elements */
+button, a, [role="button"] {
+  @apply cursor-pointer select-none;
+}
+
+input, textarea, select {
+  @apply bg-white dark:bg-gray-700 border-gray-200 dark:border-gray-600 
+         text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500
+         focus:ring-2 focus:ring-emerald-500 outline-none transition-all;
+}
+
+/* Custom Scrollbar - Theme Aware */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { @apply bg-emerald-200 dark:bg-emerald-800 rounded-full; }
+::-webkit-scrollbar-thumb:hover { @apply bg-emerald-300 dark:bg-emerald-700; }

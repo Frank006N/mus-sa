@@ -6,16 +6,6 @@
     "orientation": "portrait",
     "icon": "./assets/images/mut-logo.png",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/images/mut-logo.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "assetBundlePatterns": ["**/*"],
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "ke.ac.mut.sa"
-    },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/mut-logo.png",
@@ -23,8 +13,22 @@
       },
       "package": "ke.ac.mut.sa"
     },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "ke.ac.mut.sa"
+    },
     "web": {
       "favicon": "./assets/images/mut-logo.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "646b745a-725b-42a3-99a7-c5dddde3bd1d"
+      }
+    },
+    "sdkVersion": "58.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ]
   }
 }
