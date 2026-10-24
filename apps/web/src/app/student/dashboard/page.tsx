@@ -587,7 +587,7 @@ export default function StudentDashboard() {
                           <button onClick={()=>setShowRegModal(true)} className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold transition-all inline-flex items-center gap-2 shadow-lg shadow-blue-600/20 active:scale-95">Add RegNo First <GraduationCap size={16}/></button>
                         )
                       ) : (
-                        <button onClick={()=>{setJoinStatus('requesting');setTimeout(()=>setJoinStatus('joined'),1000)}} className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold transition-all inline-flex items-center gap-2 shadow-lg shadow-emerald-600/20 active:scale-95">Join Now <CheckCircle2 size={16}/></button>
+                        <button onClick={()=>{setJoinStatus('requesting');setTimeout(()=>setJoinStatus('pending'),1000)}} className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold transition-all inline-flex items-center gap-2 shadow-lg shadow-emerald-600/20 active:scale-95">Join Now <CheckCircle2 size={16}/></button>
                       )}
                     </div>
                   )}
