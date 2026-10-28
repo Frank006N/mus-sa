@@ -1,34 +1,36 @@
 {
   "expo": {
-    "name": "MUT SA",
-    "slug": "mut-sa",
+    "name": "MUT Social",
+    "slug": "mut-social",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/mut-logo.png",
-    "userInterfaceStyle": "light",
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/mut-logo.png",
-        "backgroundColor": "#ffffff"
-      },
-      "package": "ke.ac.mut.sa"
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#064e3b"
     },
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "ke.ac.mut.sa"
-    },
-    "web": {
-      "favicon": "./assets/images/mut-logo.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "646b745a-725b-42a3-99a7-c5dddde3bd1d"
-      }
-    },
-    "sdkVersion": "58.0.0",
     "platforms": [
       "ios",
-      "android"
+      "android",
+      "web"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "d046af67-7a9c-478b-b8e4-d5d96572a820"
+      }
+    },
+    "android": {
+      "package": "com.mutsocial.pitch",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#064e3b"
+      }
+    },
+    "plugins": [
+      "expo-status-bar",
+      "expo-secure-store"
     ]
   }
 }
