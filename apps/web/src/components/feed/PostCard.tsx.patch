@@ -1,0 +1,8 @@
+// ADD THIS IMPORT AT TOP OF FILE:
+import AnonymousReportButton from '@/components/reporting/AnonymousReportButton';
+
+// ADD THIS BUTTON INSIDE POST CARD ACTIONS SECTION:
+<AnonymousReportButton 
+  entityType="post" 
+  entityId={post.id} 
+/>

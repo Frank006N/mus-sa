@@ -362,3 +362,19 @@ export default function LoginPage() {
     </div>
   );
 }
+
+{/* Mock Google Auth Override */}
+<script dangerouslySetInnerHTML={{__html: `
+  document.addEventListener('DOMContentLoaded', () => {
+    const googleBtn = Array.from(document.querySelectorAll('button')).find(b => 
+      b.textContent.includes('Google') || b.querySelector('svg[viewBox="0 0 24 24"]')
+    );
+    if (googleBtn) {
+      googleBtn.onclick = (e) => {
+        e.preventDefault();
+        window.location.href = '/api/auth/mock-google';
+      };
+    }
+  });
+`}} />
+

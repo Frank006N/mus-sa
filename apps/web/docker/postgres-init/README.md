@@ -1,0 +1,1 @@
+The PostgreSQL container image must provide PostgreSQL 16, PostGIS 3, and pgvector. Mount the SQL migration files from `drizzle/postgres` into `/docker-entrypoint-initdb.d/` for a fresh database, or apply them with `psql` as the migration role after creating the extensions. Init scripts only run when the data volume is empty.

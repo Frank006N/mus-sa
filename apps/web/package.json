@@ -8,19 +8,29 @@
     "start": "next start"
   },
   "dependencies": {
+    "@lucia-auth/adapter-drizzle": "^1.1.0",
     "@neondatabase/serverless": "^1.2.0",
-    "bcryptjs": "3.0.3",
+    "@node-rs/argon2-linux-x64-gnu": "^2.2.2",
+    "arctic": "^3.7.0",
+    "bcryptjs": "^3.0.3",
     "better-auth": "^1.7.12",
     "better-sqlite3": "^13.0.3",
+    "bullmq": "^6.5.1",
     "drizzle-orm": "^0.45.4",
     "express-rate-limit": "8.7.1",
     "helmet": "8.3.0",
+    "ioredis": "^6.0.0",
+    "lucia": "^3.2.2",
+    "lucia-auth": "^1.8.0",
     "lucide-react": "^0.468.0",
     "next": "15.3.0",
+    "nodemailer": "^10.2.1",
+    "pgvector": "^0.2.1",
     "postgres": "^3.4.9",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "zod": "4.6.7"
+    "socket.io": "^4.8.4",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/node": "^20",
