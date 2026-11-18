@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: mut-social
+    env: node
+    buildCommand: npm install --legacy-peer-deps && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: AUTH_SECRET
+        sync: false
+      - key: DATABASE_URL
+        sync: false
