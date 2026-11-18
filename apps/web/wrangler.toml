@@ -1,0 +1,7 @@
+name = "mut-social-worker"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+[vars]
+DATABASE_URL = "postgresql://user:pass@host:5432/dbname"
+AUTH_SECRET = "3cf0856f2ca047db7fe5ee9b3c4b60ac7b45876b3964786e64f1debcfc14be"

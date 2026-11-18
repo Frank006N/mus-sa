@@ -10,3 +10,5 @@ tmp/
 *.bak
 .env.local
 out/
+mut-social-worker/
+node_modules/mut-social-worker/

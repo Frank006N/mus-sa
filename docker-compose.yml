@@ -1,0 +1,55 @@
+services:
+  postgres:
+    image: ghcr.io/bengotow/postgis-with-pgvector:16-3.5
+    environment:
+      POSTGRES_DB: mut_sa
+      POSTGRES_USER: mut_sa
+      POSTGRES_PASSWORD: mut_sa_dev
+    ports: ["5432:5432"]
+    volumes: ["mut_sa_pgdata:/var/lib/postgresql/data", "./apps/web/drizzle/postgres:/docker-entrypoint-initdb.d:ro"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mut_sa -d mut_sa"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  pgbouncer:
+    image: edoburu/pgbouncer:v1.23.1
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: mut_sa
+      DB_USER: mut_sa
+      DB_PASSWORD: mut_sa_dev
+      POOL_MODE: transaction
+      MAX_CLIENT_CONN: 6000
+      DEFAULT_POOL_SIZE: 80
+      AUTH_TYPE: scram-sha-256
+    ports: ["6432:5432"]
+    depends_on:
+      postgres: { condition: service_healthy }
+  redis:
+    image: redis:7.4-alpine
+    command: ["redis-server", "--appendonly", "yes", "--maxmemory-policy", "noeviction"]
+    ports: ["6379:6379"]
+    volumes: ["mut_sa_redis:/data"]
+  minio:
+    image: minio/minio:RELEASE.2025-02-07T23-21-09Z
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: mut_sa_minio
+      MINIO_ROOT_PASSWORD: replace-with-a-long-random-secret
+    ports: ["9000:9000", "9001:9001"]
+    volumes: ["mut_sa_minio:/data"]
+  ollama:
+    image: ollama/ollama:0.5.12
+    ports: ["11434:11434"]
+    volumes: ["mut_sa_ollama:/root/.ollama"]
+  mailpit:
+    image: axllent/mailpit:v1.22
+    ports: ["1025:1025", "8025:8025"]
+
+volumes:
+  mut_sa_pgdata:
+  mut_sa_redis:
+  mut_sa_minio:
+  mut_sa_ollama:
