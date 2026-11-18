@@ -12,5 +12,8 @@
   },
   "devDependencies": {
     "turbo": "^2.0.0"
+  },
+  "dependencies": {
+    "@node-rs/argon2": "^2.2.2"
   }
 }
