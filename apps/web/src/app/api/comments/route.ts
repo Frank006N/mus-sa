@@ -1,65 +1,88 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/db';
-import * as schema from '@/db/schema';
+import { comments, posts, userProfiles } from '@/db/schema';
 import { eq, desc } from 'drizzle-orm';
 
-// Get comments for a post
 export async function GET(req: NextRequest) {
   try {
-    const url = new URL(req.url);
-    const postId = url.searchParams.get('postId');
-    
+    const { searchParams } = new URL(req.url);
+    const postId = searchParams.get('postId');
+
     if (!postId) {
-      return NextResponse.json({ error: 'Missing postId' }, { status: 400 });
+      return NextResponse.json({ error: 'postId is required' }, { status: 400 });
     }
 
-    const comments = await db
+    const fetchedComments = await db
       .select({
-        id: schema.comments.id,
-        content: schema.comments.content,
-        createdAt: schema.comments.createdAt,
-        authorUsername: schema.userProfiles.username,
-        authorDisplayName: schema.userProfiles.displayName,
-        authorAvatar: schema.userProfiles.avatarUrl,
+        id: comments.id,
+        content: comments.content,
+        createdAt: comments.createdAt,
+        authorUsername: userProfiles.username,
+        authorDisplayName: userProfiles.displayName,
+        authorAvatar: userProfiles.avatarUrl,
       })
-      .from(schema.comments)
-      .innerJoin(schema.userProfiles, eq(schema.comments.authorId, schema.userProfiles.id))
-      .where(eq(schema.comments.postId, postId))
-      .orderBy(desc(schema.comments.createdAt));
+      .from(comments)
+      .innerJoin(
+        userProfiles,
+        eq(comments.authorId, userProfiles.id)
+      )
+      .where(eq(comments.postId, postId))
+      .orderBy(desc(comments.createdAt));
 
-    return NextResponse.json(comments);
+    return NextResponse.json(fetchedComments);
   } catch (err) {
     console.error('[COMMENTS GET ERROR]', err);
-    return NextResponse.json({ error: 'Failed to fetch comments' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Failed to fetch comments' },
+      { status: 500 }
+    );
   }
 }
 
-// Create a new comment
 export async function POST(req: NextRequest) {
   try {
     const { postId, authorId, content } = await req.json();
-    
+
     if (!postId || !authorId || !content?.trim()) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Missing required fields' },
+        { status: 400 }
+      );
     }
 
+    // Generate UUID for text primary key as defined in schema
     const commentId = crypto.randomUUID();
-    await db.insert(schema.comments).values({
+
+    // Use explicit typing to satisfy Drizzle SQLite adapter
+    await db.insert(comments).values({
       id: commentId,
-      postId,
-      authorId,
+      postId: postId as string,
+      authorId: authorId as string,
       content: content.trim(),
-      createdAt: Math.floor(Date.now() / 1000),
+      createdAt: Date.now() as any, // Matches integer('created_at', { mode: 'timestamp_ms' })
     });
 
-    // Increment comment count
-    await db.update(schema.posts)
-      .set({ commentCount: db.sql`${schema.posts.commentCount} + 1` })
-      .where(eq(schema.posts.id, postId));
+    // Increment post comment count
+    await db
+      .update(posts)
+      .set({
+        commentCount: db.sql`${posts.commentCount} + 1`,
+      })
+      .where(eq(posts.id, postId));
 
-    return NextResponse.json({ id: commentId, success: true }, { status: 201 });
+    return NextResponse.json({ success: true, id: commentId }, { status: 201 });
   } catch (err) {
     console.error('[COMMENT CREATE ERROR]', err);
-    return NextResponse.json({ error: 'Failed to create comment' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Failed to create comment' },
+      { status: 500 }
+    );
+  }
+} catch (err) {
+    console.error('[COMMENT CREATE ERROR]', err);
+    return NextResponse.json(
+      { error: 'Failed to create comment' },
+      { status: 500 }
+    );
   }
 }
