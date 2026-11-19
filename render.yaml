@@ -1,14 +1,19 @@
 services:
   - type: web
-    name: mut-social
+    name: mut-sa
     env: node
     plan: free
+    region: oregon
     buildCommand: cd apps/web && npm install --legacy-peer-deps && npm run build
     startCommand: cd apps/web && npm start
     envVars:
+      - key: NODE_ENV
+        value: production
       - key: AUTH_SECRET
         value: 3cf0856f2ca047db7fe5ee9b3c4b60ac7b45876b3964786e64f1debcfc14be
       - key: DATABASE_URL
         value: postgres://mut_sa:mut_sa_dev@localhost:5432/mut_sa?sslmode=disable
-      - key: NODE_ENV
-        value: production
+      - key: BETTER_AUTH_SECRET
+        value: ecFG5a/kaeQGRKHW6szgcFJlSytJ+U7wOLOJhJpFnOg=
+      - key: NEXT_PUBLIC_APP_URL
+        value: https://mut-sa.onrender.com
